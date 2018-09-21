@@ -200,7 +200,8 @@
                            unless (mu-cl-resources::inverse-p link) 
                            collect
                              (make-instance 'ld-relation-instance :link link)))
-         (property-uris (mapcar #'property-uri properties)))
+         (property-uris (mapcar #'property-uri properties))
+         (relationship-uris (mapcar #'relation-uri relationships)))
     (let ((ttl-resource
            (format nil "~A a <http://www.w3.org/2000/01/rdf-schema#Class>;
    ~T<http://mu.semte.ch/vocabularies/core/uuid> \"~A\" ;
@@ -211,6 +212,7 @@
    ~T<http://mu.semte.ch/vocabularies/ext/apiFilter> \"filter\"; # use filter[name] to search on the name property
    ~T<http://mu.semte.ch/vocabularies/ext/isPrimitive> false;
    ~{~T<http://mu.semte.ch/vocabularies/ext/rdfsClassProperties> ~A;~%~}
+   ~{~T<http://mu.semte.ch/vocabularies/ext/rdfsClassProperties> ~A;~%~}
    ~T<http://mu.semte.ch/vocabularies/ext/rdfaType> ~A.~%"
                    class-uri class-uuid
                    resource-name
@@ -218,8 +220,8 @@
                    display-properties
                    base-uri
                    property-uris
-                   rdfa-type
-                   ))
+                   relationship-uris
+                   rdfa-type))
           (ttl-properties
            (mapcar (lambda (property-instance)
                      ;; TODO: cope with inverse properties
