@@ -190,7 +190,8 @@
          (resource-name (gen-resource-name resource))
          (display-properties (format nil "[~{\\\"~A\\\"~^,~}]"
                                      (resource-properties-as-strings resource)))
-         (api-path (format nil "/~A" (mu-cl-resources::request-path resource)))
+         (json-api-type (mu-cl-resources::request-path resource))
+         (api-path (format nil "/~A" json-api-type))
          (base-uri (mu-support::raw-content (mu-cl-resources::ld-resource-base resource)))
          (rdfa-type (mu-cl-resources::expanded-ld-class resource))
          (properties (mapcar (lambda (slot) (make-instance 'ld-property-instance :slot slot))
@@ -209,6 +210,7 @@
    ~T<http://mu.semte.ch/vocabularies/ext/apiPath> \"~A\";
    ~T<http://mu.semte.ch/vocabularies/ext/displayProperties> \"~A\";
    ~T<http://mu.semte.ch/vocabularies/ext/baseUri> \"~A\";
+   ~T<http://mu.semte.ch/vocabularies/ext/jsonApiType> \"~A\";
    ~T<http://mu.semte.ch/vocabularies/ext/apiFilter> \"filter\"; # use filter[name] to search on the name property
    ~T<http://mu.semte.ch/vocabularies/ext/isPrimitive> false;
    ~{~T<http://mu.semte.ch/vocabularies/ext/rdfsClassProperties> ~A;~%~}
@@ -219,6 +221,7 @@
                    api-path
                    display-properties
                    base-uri
+                   json-api-type
                    property-uris
                    relationship-uris
                    rdfa-type))
