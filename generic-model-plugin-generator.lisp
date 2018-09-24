@@ -252,11 +252,15 @@
                              <http://mu.semte.ch/vocabularies/core/uuid> \"~A\" ;
                              <http://www.w3.org/2000/01/rdf-schema#label> \"~A\";
                              <http://mu.semte.ch/vocabularies/ext/rdfaType> ~A;
-                             <http://www.w3.org/2000/01/rdf-schema#range> <http://data.lblod.info/id/rdfs-classes/3c7f297e-9c7f-11e8-b70d-ef9004a24187>.~%"
+                             <http://www.w3.org/2000/01/rdf-schema#range> ~A.~%"
                                (relation-uri relationship)
                                (relation-uuid relationship)
                                (mu-cl-resources::json-key link)
-                               (mu-support:full-uri (mu-cl-resources::ld-link link)))))
+                               (mu-support:full-uri (mu-cl-resources::ld-link link))
+                               (resource-uri
+                                (gethash (mu-cl-resources::find-resource-by-name
+                                          (mu-cl-resources::resource-name link))
+                                         all-resources)))))
                    relationships)))
       (format nil "# Class for ~A #~%~A~%# Properties for ~A #~%~{~A~^~%~}~%# Relations for ~A #~%~{~A~^~%~}~2%"
               resource-name
